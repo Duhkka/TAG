@@ -3,7 +3,8 @@ library(RMySQL)
 library(DBI)
 
 options(stringsAsFactors=F)
-single = read.csv("Single Level Experiments.csv",as.is=T)
+# single = read.csv("Single Level Experiments.csv",as.is=T)
+single = read.csv("SingleLevel.csv",as.is=T)
 allcolnames = names(single)
 sDates = as.Date(as.character(single$Date),"%y%m%d")
 HemoDates = as.Date(as.character(single$Hemo.Complex.Prep),"%y%m%d")
@@ -17,7 +18,7 @@ format(sdata, width = names.width, justify = "centre")
 tags = single[!duplicated(single$Tag.Name),c("Tag.Name")]
 machines = sort(single[!duplicated(toupper(single$Station)),c("Station")])
 status = single[!duplicated(single$Status),c("Status")]
-lohi = strsplit(single$Cells.Active,"-")
+lohi = strsplit(single$CellsActive,"-")
 lo=NULL
 hi=NULL
 for (i in 1:length(lohi)) {
@@ -30,9 +31,9 @@ cy = read.csv("Cy Experiments.csv",as.is=T)
 cDates = as.Date(as.character(cy$Date),"%y%m%d")
 cdata = data.frame(format(cDates),cy[c("Tag.Name","Station","ChipNum","Status")])
 
-d = read.csv("DC Competition Experiments.csv", as.is=T)
-dDates = as.Date(as.character(com$Date),"%y%m%d")
-ddata = data.frame(format(comDates),com[c("Tag.Names","Station","ChipNum","Status")])
+dc = read.csv("DC Competition Experiments.csv", as.is=T)
+dDates = as.Date(as.character(dc$Date),"%y%m%d")
+ddata = data.frame(format(dDates),dc[c("Tag.Names","Station","ChipNum","Status")])
 
 
 

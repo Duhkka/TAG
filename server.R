@@ -9,7 +9,7 @@ shinyServer(function(input, output, session) {
     input$tag
     start_date = as.numeric(input$dateRange[1])
     end_date = as.numeric(input$dateRange[2])
-    ids = Dates>=start_date & Dates <=end_date
+    ids = sDates>=start_date & sDates <=end_date
 #     gsum = table(adata[,c(input$tag)][ids])
 #     gsum=gsum[gsum>0]
 #     gsum[order(-gsum),drop = TRUE]
@@ -33,7 +33,7 @@ shinyServer(function(input, output, session) {
       input$tag
       start_date = as.numeric(input$dateRange[1])
       end_date = as.numeric(input$dateRange[2])
-      ids = Dates>=start_date & Dates <= end_date
+      ids = sDates>=start_date & sDates <= end_date
     })
     data.frame(Tags())
   })
@@ -43,7 +43,7 @@ shinyServer(function(input, output, session) {
     osdata=reactive({
       start_date = as.numeric(input$dateRange[1])
       end_date = as.numeric(input$dateRange[2])
-      ids = Dates>=start_date & Dates <=end_date
+      ids = sDates>=start_date & sDates <=end_date
       subset(sdata, ids)
     })
     data.frame(osdata())  
@@ -53,7 +53,7 @@ shinyServer(function(input, output, session) {
     ocdata=reactive({
       start_date = as.numeric(input$dateRange[1])
       end_date = as.numeric(input$dateRange[2])
-      ids = Dates>=start_date & Dates <=end_date
+      ids = sDates>=start_date & sDates <=end_date
       subset(cdata, ids)
     })
     data.frame(ocdata())  
@@ -63,7 +63,7 @@ shinyServer(function(input, output, session) {
     oddata=reactive({
       start_date = as.numeric(input$dateRange[1])
       end_date = as.numeric(input$dateRange[2])
-      ids = Dates>=start_date & Dates <=end_date
+      ids = cDates>=start_date & cDates <=end_date
       subset(ddata, ids)
     })
     data.frame(oddata())  
