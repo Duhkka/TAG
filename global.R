@@ -35,7 +35,5 @@ dc = read.csv("DC Competition Experiments.csv", as.is=T)
 dDates = as.Date(as.character(dc$Date),"%y%m%d")
 ddata = data.frame(format(dDates),dc[c("Tag.Names","Station","ChipNum","Status")])
 
-
-
 # gsum=summary(adata$group)
 # Chips = gsum[order(-gsum),drop = FALSE]
