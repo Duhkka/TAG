@@ -10,19 +10,18 @@ shinyServer(function(input, output, session) {
     start_date = as.numeric(input$dateRange[1])
     end_date = as.numeric(input$dateRange[2])
     ids = sDates>=start_date & sDates <=end_date
-#     gsum = table(adata[,c(input$tag)][ids])
-#     gsum=gsum[gsum>0]
-#     gsum[order(-gsum),drop = TRUE]
+#     tsum = table(sdata[,c(input$tag)][ids])
+#     tsum=tsum[tsum>0]
+#     tsum[order(-tsum),drop = TRUE]
     })
     if (sum(Tags()) > 0)
     {
-#     par(mfrow=c(2,1))
-    
-    barplot(t(
-      as.matrix(Tags())), 
-      beside=TRUE, 
-      main=paste("Chip Usage from ",input$dateRange[1] ," to ", input$dateRange[2], " : ", sum(Tags())),
-      ylab="Number of chips",xlab="",ylim=c(0,max(Tags())*1.5),las=2,cex.names=1.0,cex.lab=1.5)
+      plot((as.matrix((tdf[tdf>0]))),   
+#     barplot(t(
+#       as.matrix(Tags())), 
+#       beside=TRUE, 
+       main=paste("Tags OC Levels: ",input$dateRange[1] ," to ", input$dateRange[2], " : ", sum(Tags())),
+       ylab="OC",xlab="",las=1)
 
   }
   })
@@ -47,7 +46,13 @@ shinyServer(function(input, output, session) {
       subset(sdata, ids)
     })
     data.frame(osdata())  
-  },   options = list(lengthMenu = c(10, 20, 50), pageLength = 10))
+  },
+#  option = list(drawCallback = I("function( settings ) {document.getElementById('ex1').style.width = '200px';}"))
+  options = list(lengthMenu = c(10, 20, 50), pageLength = 10,autoWidth = FALSE)
+#                ,columnDefs = list(width = "20px", width = "20px",width = "20px",width = "20px", 
+#                                    width = "20px", width = "20px",width = "10px"))
+)
+
 
   output$dtable <- renderDataTable({
     ocdata=reactive({
