@@ -4,24 +4,25 @@ library(shiny)
 
 shinyServer(function(input, output, session) {
   
-  output$tagPlot <- renderPlot({
-    Tags=reactive({
-    input$tag
+  output$gtagPlot <- renderPlot({
+    GTags=reactive({
+    input$gtag
     start_date = as.numeric(input$dateRange[1])
     end_date = as.numeric(input$dateRange[2])
     ids = sDates>=start_date & sDates <=end_date
     qids = single$Quality.Run == "Yes"
-    qr = table(sdata[,c("Tag")][qids][ids])
-#     qrd = qr[ids]
+    qr = table(sdata[,c("Tag")][ids][qids])
+#    dr = table(sdata[,c("Tag")][ids])
+#    qrd = qr[ids]
     qr[order(-qr),drop=TRUE]
     })
-    if (sum(Tags()) > 0)
+    if (sum(GTags()) > 0)
     {
   
     barplot(t(
-      as.matrix(Tags())), 
+      as.matrix(GTags())), 
       beside=TRUE, 
-       main=paste("Tags with Quality Runs: ",input$dateRange[1] ," to ", input$dateRange[2], " : ", sum(Tags())),
+       main=paste("Genia Tags with Quality Runs: ", sum(GTags())," (from ",input$dateRange[1] ," to ", input$dateRange[2], ")"),
        ylab="Num Quality Runs",xlab="",las=2)
 
   }
@@ -29,8 +30,8 @@ shinyServer(function(input, output, session) {
   
   # Generate a summary of the data
   output$summary <- renderPrint({
-    Tags=reactive({
-      input$tag
+    GTags=reactive({
+      input$gtag
       start_date = as.numeric(input$dateRange[1])
       end_date = as.numeric(input$dateRange[2])
       ids = sDates>=start_date & sDates <=end_date
@@ -39,7 +40,7 @@ shinyServer(function(input, output, session) {
       #     qrd = qr[ids]
       qr[order(-qr),drop=TRUE]
     })
-    data.frame(Tags())
+    data.frame(GTags())
   })
   
   # Generate an HTML table view of the data

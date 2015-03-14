@@ -14,7 +14,7 @@ latest   = max(date_list,na.rm=TRUE)
 sdata = data.frame(format(sDates),single[c("Tag.Name","Station","ChipNum","Status","Num.cells.clean","Num.cells.quality.sequencing","Mean.capturing.level.OC","Capturing.Level.Standard.Deviation","Mean.Dwell.time","Quality.Run")])
 names(sdata) = c("Date","Tag","Station","Chip","Status","Clean","Seq","Mean OC","sigma OC","Mean DT","Quality Run")
 
-tags = single[!duplicated(single$Tag.Name),c("Tag.Name")]
+gtags = single[!duplicated(single$Tag.Name),c("Tag.Name")]
 machines = sort(single[!duplicated(toupper(single$Station)),c("Station")])
 status = single[!duplicated(single$Status),c("Status")]
 lohi = strsplit(single$CellsActive,"-")
@@ -35,4 +35,4 @@ dDates = as.Date(as.character(dc$Date),"%y%m%d")
 ddata = data.frame(format(dDates),dc[c("Tag.Names","Station","ChipNum","Status")])
 
 tdf=data.frame(single$Tag.Name,single$Mean.capturing.level.OC)
-# Tagsum = tsum[order(-tsum),drop = FALSE]
+
