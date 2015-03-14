@@ -15,7 +15,7 @@ shinyUI(fluidPage(
                 
                 mainPanel(
                   tabsetPanel(type = "tabs", 
-                              tabPanel("Plot", plotOutput("chipPlot")), 
+                              tabPanel("Plot", plotOutput("tagPlot")), 
                               tabPanel("Summary", verbatimTextOutput("summary")), 
                               tabPanel("Single Level ", dataTableOutput("sltable")),
                               tabPanel("Dye", dataTableOutput("dtable")),
