@@ -4,24 +4,25 @@ library(shiny)
 
 shinyServer(function(input, output, session) {
   
-  output$chipPlot <- renderPlot({
+  output$tagPlot <- renderPlot({
     Tags=reactive({
     input$tag
     start_date = as.numeric(input$dateRange[1])
     end_date = as.numeric(input$dateRange[2])
     ids = sDates>=start_date & sDates <=end_date
-#     tsum = table(sdata[,c(input$tag)][ids])
-#     tsum=tsum[tsum>0]
-#     tsum[order(-tsum),drop = TRUE]
+    qids = single$Quality.Run == "Yes"
+    qr = table(sdata[,c("Tag")][qids][ids])
+#     qrd = qr[ids]
+    qr[order(-qr),drop=TRUE]
     })
     if (sum(Tags()) > 0)
     {
-      plot((as.matrix((tdf[tdf>0]))),   
-#     barplot(t(
-#       as.matrix(Tags())), 
-#       beside=TRUE, 
-       main=paste("Tags OC Levels: ",input$dateRange[1] ," to ", input$dateRange[2], " : ", sum(Tags())),
-       ylab="OC",xlab="",las=1)
+  
+    barplot(t(
+      as.matrix(Tags())), 
+      beside=TRUE, 
+       main=paste("Tags with Quality Runs: ",input$dateRange[1] ," to ", input$dateRange[2], " : ", sum(Tags())),
+       ylab="Num Quality Runs",xlab="",las=2)
 
   }
   })
@@ -32,7 +33,11 @@ shinyServer(function(input, output, session) {
       input$tag
       start_date = as.numeric(input$dateRange[1])
       end_date = as.numeric(input$dateRange[2])
-      ids = sDates>=start_date & sDates <= end_date
+      ids = sDates>=start_date & sDates <=end_date
+      qids = single$Quality.Run == "Yes"
+      qr = table(sdata[,c("Tag")][qids][ids])
+      #     qrd = qr[ids]
+      qr[order(-qr),drop=TRUE]
     })
     data.frame(Tags())
   })
