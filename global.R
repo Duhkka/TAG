@@ -11,8 +11,8 @@ HemoDates = as.Date(as.character(single$Hemo.Complex.Prep),"%y%m%d")
 date_list = structure(sDates,Class="Date")
 earliest = min(date_list,na.rm=TRUE)
 latest   = max(date_list,na.rm=TRUE)
-sdata = data.frame(format(sDates),single[c("Tag.Name","Station","ChipNum","Status","Num.cells.clean","Num.cells.quality.sequencing","Mean.capturing.level.OC","Capturing.Level.Standard.Deviation","Mean.Dwell.time","Quality.Run")])
-names(sdata) = c("Date","Tag","Station","Chip","Status","Clean","Seq","Mean OC","sigma OC","Mean DT","Quality Run")
+sdata = data.frame(format(sDates),single[c("Tag.Name","Full.Name","Station","ChipNum","Status","Num.cells.clean","Num.cells.quality.sequencing","Mean.capturing.level.OC","Capturing.Level.Standard.Deviation","Mean.Dwell.time","Quality.Run")])
+names(sdata) = c("Date","Tag","TagName","Station","Chip","Status","Clean","Seq","Mean OC","sigma OC","Mean DT","Quality Run")
 
 gtags = single[!duplicated(single$Tag.Name),c("Tag.Name")]
 machines = sort(single[!duplicated(toupper(single$Station)),c("Station")])

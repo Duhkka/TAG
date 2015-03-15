@@ -36,11 +36,11 @@ shinyServer(function(input, output, session) {
       end_date = as.numeric(input$dateRange[2])
       ids = sDates>=start_date & sDates <=end_date
       qids = single$Quality.Run == "Yes"
-      qr = table(sdata[,c("Tag")][qids][ids])
-      #     qrd = qr[ids]
+      qr = table(sdata[,c("TagName")][ids][qids])
       qr[order(-qr),drop=TRUE]
+
     })
-    data.frame(GTags())
+   data.frame(GTags())
   })
   
   # Generate an HTML table view of the data
