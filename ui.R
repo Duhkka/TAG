@@ -21,7 +21,8 @@ shinyUI(fluidPage(
                 
                 mainPanel(width = "100%",
                   tabsetPanel(type = "tabs", 
-                              tabPanel("Plot", plotOutput("gtagPlot")), 
+                              tabPanel("Quality Runs", plotOutput("gtagPlot")),
+                              tabPanel("Mean OC", plotOutput("mocPlot")),
                               tabPanel("Summary", verbatimTextOutput("summary")), 
                               tabPanel("Single Level ", dataTableOutput("sltable")),
                               tabPanel("Dye", dataTableOutput("dtable")),

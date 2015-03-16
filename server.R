@@ -14,7 +14,7 @@ shinyServer(function(input, output, session) {
     qr = table(sdata[,c("Tag")][ids][qids])
 #    dr = table(sdata[,c("Tag")][ids])
 #    qrd = qr[ids]
-    qr[order(-qr),drop=TRUE]
+     qr[order(-qr),drop=TRUE]
     })
     if (sum(GTags()) > 0)
     {
@@ -27,7 +27,26 @@ shinyServer(function(input, output, session) {
 
   }
   })
-  
+
+output$mocPlot <- renderPlot({
+  mOC=reactive({
+#     start_date = as.numeric(input$dateRange[1])
+#     end_date = as.numeric(input$dateRange[2])
+#     ids = sDates>=start_date & sDates <=end_date
+    qids = single$Quality.Run == "Yes"
+    toc = data.frame(as.factor(aggtags$Tag),aggtags$Mean.OC)
+    names(toc)=c("Tag", "Mean.OC")
+    subset(toc,!(is.na(toc["Tag"]) | is.na(toc["Mean.OC"])) & toc["Mean.OC"] > 0)
+
+  })
+
+  if (length(mOC()) > 0)
+  {
+    plot(mOC(),  
+      main=paste("Genia Tags Average OC: "," (from ",input$dateRange[1] ," to ", input$dateRange[2], ")"),
+      ylab="Mean OC",xlab="",las=2)
+  }    
+})
   # Generate a summary of the data
   output$summary <- renderPrint({
     GTags=reactive({
